@@ -1,0 +1,17 @@
+version: 2
+jobs:
+
+  deploy_app:
+    docker:
+      - image: azuresdk/azure-cli-python
+    
+    steps:
+      # LOGIN ONTO AZURE WITH EXISTING SERVICE PRINCIPAL
+      - run: az login --service-principal -u $SERVICE_PRINCIPAL --password $SERVICE_PRINCIPAL_PASS --tenant $SERVICE_TENANT
+
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - deploy_app
